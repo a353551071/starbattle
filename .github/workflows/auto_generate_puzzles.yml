@@ -1,0 +1,38 @@
+﻿name: Auto Generate Next Month Puzzles
+
+on:
+  schedule:
+    # Runs at 02:00 UTC on the 20th of every month
+    - cron: '0 2 20 * *'
+  workflow_dispatch: # Allows manual trigger anytime from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Puzzle Generator
+        run: |
+          python scripts/auto_generate_puzzles.py
+
+      - name: Commit and Push if Changed
+        run: |
+          git config --global user.name github-actions[bot]
+          git config --global user.email github-actions[bot]@users.noreply.github.com
+          git add src/data/puzzles.json
+          if git diff --staged --quiet; then
+            echo No new puzzles generated. Up to date!
+          else
+            git commit -m chore(puzzles): auto-generate next month daily puzzles
+            git push origin main
+          fi
