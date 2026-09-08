@@ -17,6 +17,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/8x8" className="hover:text-amber-500 transition-colors">
+                  Star Battle 8x8 (1★ Easy)
+                </Link>
+              </li>
+              <li>
+                <Link href="/10x10" className="hover:text-amber-500 transition-colors">
+                  Star Battle 10x10 (2★ Classic)
+                </Link>
+              </li>
+              <li>
                 <Link href="/daily/archive" className="hover:text-amber-500 transition-colors">
                   Daily Puzzles Archive
                 </Link>
