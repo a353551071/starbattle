@@ -51,9 +51,39 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const adsense = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || 'ca-pub-7319059902337479';
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || 'G-XPYD94N3TD';
+  const gscVerification = process.env.NEXT_PUBLIC_GSC_VERIFICATION || 'rO1KjfWc2PG_lBO5APLdAjNoEjkRFrCPz9Kf_39GYSw';
+
   return (
     <html lang="en" className="h-full">
       <head>
+        {gscVerification && (
+          <meta name="google-site-verification" content={gscVerification} />
+        )}
+        {adsense && (
+          <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        )}
+        {gaId && (
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
+        )}
+        {adsense && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsense}`}
+            crossOrigin="anonymous"
+          />
+        )}
+        {gaId && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`,
+              }}
+            />
+          </>
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
