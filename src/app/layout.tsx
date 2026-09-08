@@ -58,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
+        <meta name="google-site-verification" content="iPCWtB2YyDcdozbLWzngNKS5Qd3aJnBxM4vjHGIxVqI" />
         {gscVerification && (
           <meta name="google-site-verification" content={gscVerification} />
         )}
