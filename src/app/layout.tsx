@@ -12,16 +12,18 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://starbattleonline.com'),
-  title: 'Star Battle Online - Play Free Daily Logic Puzzle (Two Not Touch)',
+  title: 'Star Battle - Free Two Not Touch Daily Logic Puzzles',
   description:
-    'Play Star Battle online for free! Solve daily 10x10 (2-star) and 8x8 (1-star) logic puzzles with unique verified solutions. Also known as Two Not Touch. No app or registration required.',
+    'Play Star Battle (Two Not Touch) free online! Solve daily 10x10 and 8x8 logic puzzles with verified unique solutions. No ads or download required.',
   keywords: [
     'star battle',
-    'star battle online',
-    'daily star battle',
     'two not touch',
+    'star battle puzzle',
+    'two not touch online',
     'two not touch puzzle',
+    'star battle online',
     'star battle solver',
+    'daily star battle',
     'star battle rules',
     'queens game star battle',
     'logic puzzles',
@@ -31,18 +33,27 @@ export const metadata: Metadata = {
     canonical: 'https://starbattleonline.com',
   },
   openGraph: {
-    title: 'Star Battle Online - Play Free Daily Logic Puzzle',
+    title: 'Star Battle - Free Two Not Touch Daily Logic Puzzles',
     description:
-      'Daily 10x10 and 8x8 logic puzzles. Place stars such that no two touch! Clean, responsive mobile web game.',
+      'Play Star Battle (Two Not Touch) free online! Solve daily 10x10 and 8x8 logic puzzles with verified unique solutions.',
     url: 'https://starbattleonline.com',
     siteName: 'Star Battle Online',
     type: 'website',
+    images: [
+      {
+        url: 'https://starbattleonline.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Star Battle - Free Two Not Touch Daily Logic Puzzles',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Star Battle Online - Play Free Daily Logic Puzzle',
+    title: 'Star Battle - Free Two Not Touch Daily Logic Puzzles',
     description:
-      'Daily 10x10 and 8x8 logic puzzles. Place stars such that no two touch! Clean, responsive mobile web game.',
+      'Play Star Battle (Two Not Touch) free online! Solve daily 10x10 and 8x8 logic puzzles with verified unique solutions.',
+    images: ['https://starbattleonline.com/og-image.png'],
   },
 };
 
@@ -88,22 +99,38 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'WebApplication',
-              name: 'Star Battle Online',
-              applicationCategory: 'GameApplication',
-              operatingSystem: 'Any',
-              url: 'https://starbattleonline.com',
-              description:
-                'Free daily Star Battle and Two Not Touch logic puzzles online with mathematically verified unique solutions.',
-              genre: ['Puzzle', 'Logic Game'],
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Game',
+                name: 'Star Battle (Two Not Touch)',
+                url: 'https://starbattleonline.com',
+                description:
+                  'Free daily Star Battle and Two Not Touch logic puzzles online with mathematically verified unique solutions.',
+                genre: ['Puzzle', 'Logic Game', 'Brain Teaser'],
+                gameItem: ['Star Battle 10x10', 'Star Battle 8x8', 'Daily Star Battle', 'Two Not Touch'],
+                numberOfPlayers: {
+                  '@type': 'QuantitativeValue',
+                  value: 1,
+                },
               },
-            }),
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebApplication',
+                name: 'Star Battle Online',
+                applicationCategory: 'GameApplication',
+                operatingSystem: 'Any',
+                url: 'https://starbattleonline.com',
+                description:
+                  'Free daily Star Battle and Two Not Touch logic puzzles online with mathematically verified unique solutions.',
+                genre: ['Puzzle', 'Logic Game'],
+                offers: {
+                  '@type': 'Offer',
+                  price: '0',
+                  priceCurrency: 'USD',
+                },
+              },
+            ]),
           }}
         />
       </head>
