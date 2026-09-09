@@ -73,6 +73,12 @@ export default function Header() {
             Solver
           </Link>
           <Link
+            href="/two-not-touch"
+            className="hidden sm:inline-block px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+          >
+            Two Not Touch
+          </Link>
+          <Link
             href="/how-to-play"
             className="hidden sm:inline-block px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
@@ -80,7 +86,7 @@ export default function Header() {
           </Link>
           <Link
             href="/printable"
-            className="hidden sm:inline-block px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            className="hidden md:inline-block px-2.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
             Printable
           </Link>
