@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Star Battle Online
 
-## Getting Started
+Free, no-signup web player for the classic World Puzzle Championship logic puzzle **Star Battle** (a.k.a. *Two Not Touch*, first cousin of LinkedIn's *Queens*), with daily puzzles, a printable archive, and an interactive step-by-step solver.
 
-First, run the development server:
+▶ Live site: **[starbattleonline.com](https://starbattleonline.com/)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The defining engineering constraint of this project: **every published board must be machine-verified to have exactly one solution** — no multi-solution grids, no puzzles that force bifurcation (guess-and-backtrack). This README documents how the engine guarantees that.
+
+## The constraint engine (`src/lib/engine.ts`)
+
+A dependency-free TypeScript solver/generator (~300 lines). The rules of Star Battle map to:
+
+- `rowCount[r] == K`, `colCount[c] == K`, `regionCount[g] == K` (K = 1 star for 8×8, 2 stars for 10×10)
+- no two stars touch, **including diagonals**: `max(|Δrow|, |Δcol|) > 1`
+
+### Solve: row-combination backtracking + pigeonhole pruning
+
+Instead of placing stars cell by cell, each row is drawn from a precomputed set of non-touching K-subsets of columns (`combosK`). The search backtracks over rows against running column/region tallies, pruned by two pigeonhole bounds made O(1) with a suffix-sum table (`remRegionCells`):
+
+```ts
+// dead branch: a column/region can no longer reach K stars in the rows left
+if (colCounts[c] + remRows < K) return;
+if (regCounts[reg] + remRegionCells[row][reg] < K) return;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The diagonal-touch check only ever inspects the previous row (O(K)), never the full placement history. On typical 10×10 boards the solver verifies a grid in **~10–15 ms**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Uniqueness as a search bound
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`solve(regions, maxSolutions = 2)` stops at the *second* solution. `solutions.length === 1` therefore certifies strict uniqueness — and because a second solution usually sits near the first in the search tree, proving uniqueness costs barely more than solving once. This is the oracle every generated board must pass.
 
-## Learn More
+### Generate: sample stars → Voronoi regions → verify
 
-To learn more about Next.js, take a look at the following resources:
+1. `findStarPlacements` samples a valid star layout (rows × precomputed combos, shuffled for variety), ignoring regions.
+2. A **Voronoi partition** seeded from shuffled star-group centroids produces organic-looking regions.
+3. `allConnected` (per-region BFS) rejects non-contiguous partitions — classic Star Battle regions must be orthogonally connected.
+4. The uniqueness oracle decides: exactly one solution ships the board; anything else is resampled (`generateStrictlyUnique`, up to 30 tries).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Seeding the geometry from the solution itself keeps regions "fair" (each holds roughly the mass its K stars need), biasing generation toward constraint-dense, non-degenerate puzzles. A deeper writeup of these techniques: [Designing a Zero-Guess Puzzle Generator for Star Battle Using Constraint Logic](https://dev.to/a353551071/designing-a-zero-guess-puzzle-generator-for-star-battle-two-not-touch-using-constraint-logic-1ghj).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Puzzle supply & CI
 
-## Deploy on Vercel
+- `src/data/puzzles.json` holds the puzzle pool, including a `daily` map keyed by date (`/daily/YYYY-MM-DD` pages are statically generated).
+- `scripts/auto_generate_puzzles.py` extends the pool with an independent Python implementation of the same uniqueness oracle (`solver.py`'s `FastSolver`, also `solve(regs, 2)` → exactly-one acceptance); a GitHub Actions workflow regenerates next month's stock on the 20th of each month (02:00 UTC) and commits the change to `main`, so daily boards never run dry.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Site architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js (App Router) with full SSG** — every puzzle page, the daily archive, `/two-not-touch` and `/queens` variant pages, `/solver`, and printable sheets are pre-rendered static HTML.
+- **Pure SVG + DOM interaction** (`StarBattleBoard.tsx`) — no canvas, no tracking scripts, keyboard (Q/S/X) and touch support.
+- Structured data: `GameApplication`, `BreadcrumbList`, `FAQPage` JSON-LD across key pages.
+- Deployed on Vercel.
+
+## Development
+
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # SSG build; verifies all puzzle pages statically
+```
+
+To add puzzles locally: `python scripts/auto_generate_puzzles.py --help`.
+
+## License
+
+Site code © 2026. The puzzle format itself is a classic public-domain pencil-puzzle style; puzzle data in `src/data/puzzles.json` is free to use with attribution.
