@@ -10,6 +10,7 @@ export interface BoardProps {
   solution?: [number, number][];
   puzzleId?: string;
   puzzleDate?: string;
+  markerType?: 'star' | 'queen';
   onSolved?: () => void;
 }
 
@@ -128,6 +129,23 @@ function StarIcon({ isConflict }: { isConflict?: boolean }) {
   );
 }
 
+// SVG Queen/Crown Icon Component
+function QueenIcon({ isConflict }: { isConflict?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={`w-6 h-6 sm:w-7 sm:h-7 pointer-events-none transition-all duration-150 transform scale-100 ${
+        isConflict
+          ? 'text-rose-600 dark:text-rose-400 drop-shadow-[0_0_8px_rgba(225,29,72,0.8)] animate-pulse'
+          : 'text-amber-400 drop-shadow-[0_2px_8px_rgba(245,158,11,0.55)]'
+      }`}
+      fill="currentColor"
+    >
+      <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .55-.45 1-1 1H6c-.55 0-1-.45-1-1v-1h14v1z" />
+    </svg>
+  );
+}
+
 // SVG Cross Icon Component
 function CrossIcon() {
   return (
@@ -151,8 +169,13 @@ export default function StarBattleBoard({
   regions,
   puzzleId,
   puzzleDate,
+  markerType = 'star',
   onSolved,
 }: BoardProps) {
+  const isQueen = markerType === 'queen';
+  const markerLabel = isQueen ? 'Queen' : 'Star';
+  const markerSymbol = isQueen ? '👑' : '★';
+
   // Grid state
   const [grid, setGrid] = useState<CellState[][]>(() =>
     Array.from({ length: size }, () => new Array(size).fill(0))
@@ -460,7 +483,7 @@ export default function StarBattleBoard({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      if (e.key === 's' || e.key === 'S' || e.key === '1') {
+      if (e.key === 's' || e.key === 'S' || e.key === 'q' || e.key === 'Q' || e.key === '1') {
         setActiveTool('star');
       } else if (e.key === 'x' || e.key === 'X' || e.key === '2') {
         setActiveTool('cross');
@@ -482,7 +505,7 @@ export default function StarBattleBoard({
       <div className="w-full flex items-center justify-between mb-3 px-1 sm:px-2 text-xs font-semibold text-zinc-600 dark:text-zinc-400">
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-            {starsRequired}★ per Row/Col/Region
+            {starsRequired}{markerSymbol} per Row/Col/Region
           </span>
           <span className="hidden sm:inline-flex items-center px-2 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800/60 text-zinc-500 text-xs">
             {size}x{size}
@@ -510,7 +533,7 @@ export default function StarBattleBoard({
       {/* Progress & Conflict Pill */}
       <div className="w-full flex items-center justify-between px-2 mb-2 text-xs">
         <div className="flex items-center gap-2">
-          <span className="text-zinc-500">Stars:</span>
+          <span className="text-zinc-500">{markerLabel}s:</span>
           <span className="font-mono font-bold text-zinc-800 dark:text-zinc-200">
             {totalStarsPlaced} / {targetTotalStars}
           </span>
@@ -518,7 +541,7 @@ export default function StarBattleBoard({
 
         {conflicts.size > 0 ? (
           <span className="inline-flex items-center gap-1 text-[11px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/60 px-2 py-0.5 rounded-full border border-rose-200 dark:border-rose-900/60 animate-pulse">
-            ⚠️ {conflicts.size} conflicting star{conflicts.size > 1 ? 's' : ''}
+            ⚠️ {conflicts.size} conflicting {isQueen ? 'queen' : 'star'}{conflicts.size > 1 ? 's' : ''}
           </span>
         ) : totalStarsPlaced === targetTotalStars ? (
           <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-900/60">
@@ -592,7 +615,7 @@ export default function StarBattleBoard({
                     hover:brightness-95 dark:hover:brightness-110 active:scale-95
                   `}
                 >
-                  {cellVal === 2 && <StarIcon isConflict={isConflict} />}
+                  {cellVal === 2 && (isQueen ? <QueenIcon isConflict={isConflict} /> : <StarIcon isConflict={isConflict} />)}
                   {cellVal === 1 && <CrossIcon />}
                 </div>
               );
@@ -607,15 +630,15 @@ export default function StarBattleBoard({
         <div className="flex items-center gap-1.5 bg-zinc-100 dark:bg-zinc-800/90 p-1 rounded-2xl border border-zinc-200 dark:border-zinc-700/80 shadow-sm">
           <button
             onClick={() => setActiveTool('star')}
-            title="Star placement tool (Shortcut: S or 1)"
+            title={`${markerLabel} placement tool (Shortcut: S, Q or 1)`}
             className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
               activeTool === 'star'
                 ? 'bg-amber-500 text-white shadow-md shadow-amber-500/30 scale-100'
                 : 'text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white'
             }`}
           >
-            <span className="text-sm">★</span>
-            <span>Star</span>
+            <span className="text-sm">{markerSymbol}</span>
+            <span>{markerLabel}</span>
           </button>
           <button
             onClick={() => setActiveTool('cross')}
@@ -670,7 +693,7 @@ export default function StarBattleBoard({
 
       {/* Helpful Hint / Tip Bar */}
       <div className="w-full flex items-center justify-center gap-3 mt-3 text-[11px] text-zinc-400 dark:text-zinc-500">
-        <span className="hidden sm:inline">💡 Shortcuts: [Space] toggle tool &bull; [S] Star &bull; [X] Cross</span>
+        <span className="hidden sm:inline">💡 Shortcuts: [Space] toggle tool &bull; [S/Q] {markerLabel} &bull; [X] Cross</span>
         <span className="sm:hidden">💡 Swipe across cells in Cross mode to multi-fill</span>
       </div>
 

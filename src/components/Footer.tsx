@@ -22,6 +22,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/queens" className="hover:text-amber-500 transition-colors">
+                  Queens Game Online (1👑)
+                </Link>
+              </li>
+              <li>
                 <Link href="/10x10" className="hover:text-amber-500 transition-colors">
                   Star Battle 10x10 (2★ Classic)
                 </Link>
@@ -63,6 +68,11 @@ export default function Footer() {
               <li>
                 <Link href="/two-not-touch" className="hover:text-amber-500 transition-colors">
                   What is Two Not Touch?
+                </Link>
+              </li>
+              <li>
+                <Link href="/queens" className="hover:text-amber-500 transition-colors">
+                  Queens Rules & Solver
                 </Link>
               </li>
               <li>
