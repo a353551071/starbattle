@@ -4,7 +4,9 @@ import puzzleData from '@/data/puzzles.json';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://starbattleonline.com';
   const daily = (puzzleData as any).daily || {};
-  const dailyDates = Object.keys(daily);
+  // 只发布已过去的日期:未来日期页不进 sitemap(数据可预生成,页面绝不预上线)
+  const today = new Date().toISOString().slice(0, 10);
+  const dailyDates = Object.keys(daily).filter((date) => date <= today);
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
