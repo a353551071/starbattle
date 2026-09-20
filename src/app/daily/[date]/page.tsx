@@ -10,11 +10,23 @@ interface PageProps {
   }>;
 }
 
+// 未来日期页绝不预上线:构建时只预渲染已过去(含今天)的日期,
+// 未来日期请求走运行时门禁返回 404;revalidate 保证跨天后 404 自动翻转为 200
+export const revalidate = 3600;
+
+// 站点既有口径:与 sitemap.ts 一致,按 UTC 日期判定"今天"
+function getServerToday(): string {
+  return new Date().toISOString().split('T')[0];
+}
+
 export async function generateStaticParams() {
   const daily = (puzzleData as any).daily || {};
-  return Object.keys(daily).map((date) => ({
-    date,
-  }));
+  const today = getServerToday();
+  return Object.keys(daily)
+    .filter((date) => date <= today)
+    .map((date) => ({
+      date,
+    }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -33,12 +45,14 @@ export default async function DailyDatePage({ params }: PageProps) {
   const daily = (puzzleData as any).daily || {};
   const puzzle = daily[date];
 
-  if (!puzzle) {
+  // 路由级日期门禁:无此日期的谜题、或日期晚于今天(UTC 口径,今天本身放行)一律 404,
+  // 数据可预生成但页面绝不预上线(与 sitemap 2ab978d 只列过去日期同口径)
+  if (!puzzle || date > getServerToday()) {
     notFound();
   }
 
   // Calculate previous and next dates (guard against future dates)
-  const serverToday = new Date().toISOString().split('T')[0];
+  const serverToday = getServerToday();
   const allDates = Object.keys(daily).sort();
   const currentIdx = allDates.indexOf(date);
   const prevDate = currentIdx > 0 ? allDates[currentIdx - 1] : null;
