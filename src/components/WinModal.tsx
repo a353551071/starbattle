@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { getLocalDateString } from '@/lib/dailyStats';
+import { getTomorrowPreview } from '@/lib/tomorrowPreview';
 
 interface WinModalProps {
   isOpen: boolean;
@@ -25,12 +28,33 @@ export default function WinModal({
 }: WinModalProps) {
   const [copied, setCopied] = useState(false);
 
+  // Tomorrow teaser: only for the CURRENT day's daily (archive replays get
+  // no preview). Text-only — never leaks tomorrow's region layout or solution.
+  const preview = puzzleDate && puzzleDate === getLocalDateString() ? getTomorrowPreview(puzzleDate) : null;
+  const reminderKey = preview ? `sb_remind_${preview.date}` : '';
+  const [reminded, setReminded] = useState(false);
+
+  const handleRemind = () => {
+    if (!reminderKey) return;
+    try {
+      window.localStorage.setItem(reminderKey, '1');
+    } catch {}
+    setReminded(true);
+  };
+
   if (!isOpen) return null;
 
   const formatTime = (secs: number) => {
     const m = Math.floor(secs / 60);
     const s = secs % 60;
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const formatEstimate = (secs: number) => {
+    const m = Math.floor(secs / 60);
+    const s = secs % 60;
+    if (m === 0) return `${s}s`;
+    return s === 0 ? `${m} min` : `${m} min ${s}s`;
   };
 
   // Performance Star Rating (1-3 stars)
@@ -109,6 +133,38 @@ export default function WinModal({
             </div>
           </div>
         </div>
+
+        {/* Tomorrow's Puzzle Teaser (daily only, text-only) */}
+        {preview && (
+          <div className="mb-5 p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800 text-left">
+            <div className="text-[10px] uppercase font-bold text-zinc-400 tracking-wider mb-1.5">
+              Tomorrow&apos;s Puzzle
+            </div>
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+              Tomorrow ({preview.labelDate}): Board #{preview.boardNumber}, {preview.difficulty} ({preview.difficultyStars}
+              ★), estimated {formatEstimate(preview.estimateSeconds)}.
+            </p>
+            <div className="flex items-center justify-between gap-2 mt-2.5 flex-wrap">
+              <button
+                onClick={handleRemind}
+                disabled={reminded}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  reminded
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/60 cursor-default'
+                    : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 active:scale-[0.98]'
+                }`}
+              >
+                {reminded ? '✓ Saved — see you tomorrow!' : '🔔 Remind me'}
+              </button>
+              <Link
+                href="/queens"
+                className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 hover:text-amber-500 dark:hover:text-amber-400 transition-colors"
+              >
+                Can&apos;t wait? Play unlimited Queens &rarr;
+              </Link>
+            </div>
+          </div>
+        )}
 
         {/* Share & Actions */}
         <div className="space-y-2.5">
