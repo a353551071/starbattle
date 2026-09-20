@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import WinModal from './WinModal';
+import { computeStreak, getLocalDateString, recordDailySolved } from '@/lib/dailyStats';
 
 export interface BoardProps {
   size: number;
@@ -391,9 +392,17 @@ export default function StarBattleBoard({
           navigator.vibrate([40, 60, 80]);
         }
         try {
-          const currentStreak = parseInt(localStorage.getItem('sb_streak') || '0', 10) + 1;
-          localStorage.setItem('sb_streak', currentStreak.toString());
-          setStreak(currentStreak);
+          // Daily challenge: record today's solve date and show the real
+          // consecutive-day streak. Practice boards keep the legacy counter.
+          const todayStr = getLocalDateString();
+          if (puzzleDate && puzzleDate === todayStr) {
+            const dates = recordDailySolved(todayStr);
+            setStreak(computeStreak(dates, todayStr));
+          } else {
+            const currentStreak = parseInt(localStorage.getItem('sb_streak') || '0', 10) + 1;
+            localStorage.setItem('sb_streak', currentStreak.toString());
+            setStreak(currentStreak);
+          }
         } catch {}
         if (onSolved) onSolved();
       }

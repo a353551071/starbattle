@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import StarBattleBoard from '@/components/StarBattleBoard';
+import DailyStreakBadge from '@/components/DailyStreakBadge';
 import puzzleData from '@/data/puzzles.json';
 
 function getClientDateString(): string {
@@ -115,6 +116,9 @@ export default function HomePuzzleHero() {
           </button>
         </div>
       </div>
+
+      {/* Streak Badge & Monthly Progress Grid (localStorage only) */}
+      <DailyStreakBadge />
 
       {/* Main Board Component */}
       {activePuzzle && (
