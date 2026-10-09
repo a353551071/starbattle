@@ -54,6 +54,30 @@ export default function HomePage() {
           text: 'While Sudoku is based on placing numbers 1 through 9 into subgrids without duplicates, Star Battle is a purely spatial, binary deduction puzzle (each cell either contains a star or an elimination cross). LinkedIn Queens is a 1-star variation where each row, column, and colored region contains exactly one queen with no diagonal touching.',
         },
       },
+      {
+        '@type': 'Question',
+        name: 'Where can I play Star Battle puzzles online for free?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Star Battle Online (starbattleonline.com) lets you solve Star Battle puzzles free in any browser, with no download or signup. It offers a new daily puzzle every day, an archive of 8x8 and 10x10 grids at two difficulty levels, a step-by-step solver, and free printable puzzle sheets with solutions.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What are the rules of Star Battle?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Place stars into a grid divided into outlined regions so that (1) every row, every column, and every region contains exactly the required number of stars (1 star on 8x8 grids, 2 stars on 10x10 grids), and (2) no two stars ever touch — not horizontally, not vertically, and not diagonally. Each puzzle has exactly one solution reachable by pure logic.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is there a daily Star Battle puzzle like Wordle?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Star Battle Online publishes one handpicked daily puzzle every day at starbattleonline.com/daily, in the same once-a-day tradition as Wordle. Each daily puzzle is verified to have a unique solution, and the archive keeps growing so you always have another grid to solve.',
+        },
+      },
     ],
   };
 
