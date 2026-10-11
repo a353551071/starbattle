@@ -66,6 +66,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/tips" className="hover:text-amber-500 transition-colors">
+                  Tips &amp; Techniques Deep Dive
+                </Link>
+              </li>
+              <li>
+                <Link href="/puzzle-quality" className="hover:text-amber-500 transition-colors">
+                  Unique-Solution Guarantee
+                </Link>
+              </li>
+              <li>
                 <Link href="/two-not-touch" className="hover:text-amber-500 transition-colors">
                   What is Two Not Touch?
                 </Link>
