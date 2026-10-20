@@ -136,7 +136,7 @@ export default function Footer() {
               Star Battle (Two Not Touch) is a logic grid puzzle originally invented by Hans Eendebak in 2003. 100% free to play, zero registration required.
             </p>
             <div className="text-[11px] text-zinc-400">
-              © {new Date().getFullYear()} StarBattleOnline.com. All rights reserved.
+              © {new Date().getFullYear()} StarBattleOnline.com. All rights reserved. · <a href="https://pikkai.com/" target="_blank" rel="nofollow noopener noreferrer" className="hover:text-zinc-500 transition-colors">Featured on Pikkai</a>
             </div>
           </div>
         </div>
