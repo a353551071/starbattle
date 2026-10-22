@@ -1,0 +1,19 @@
+# Star Battle Online
+> Free online Star Battle puzzle game — play 2-region Star Battle and Two No Touch instantly in the browser. Every puzzle is computer-verified to have a unique solution, 100% logic-solvable with zero guessing required.
+
+Pages:
+- [Play Star Battle](https://starbattleonline.com/): the main 2-region Star Battle game, playable online for free
+- [Two No Touch](https://starbattleonline.com/two-not-touch): the Two No Touch variant (one star per row, column and region) as an online interactive tool
+- [Two Not Touch Solver](https://starbattleonline.com/solver): free online solver that verifies and solves Two No Touch / Star Battle puzzles step by step
+- [Daily puzzle](https://starbattleonline.com/daily): a new computer-verified Star Battle puzzle every day
+- [How to play](https://starbattleonline.com/how-to-play): complete rules and step-by-step solving techniques
+- [Tips](https://starbattleonline.com/tips): advanced solving strategies and deduction chains
+- [Puzzle quality](https://starbattleonline.com/puzzle-quality): how every puzzle is verified for a unique, logic-solvable solution
+- [Printable puzzles](https://starbattleonline.com/printable): free printable Star Battle and Two No Touch puzzle sheets
+- [About & contact](https://starbattleonline.com/about)
+
+Key facts:
+- All puzzles are generated and verified locally: unique solution, solvable by pure logic, no guessing
+- Grid sizes include 8x8, 10x10 and more, plus the Queens-style daily challenge
+- Free to play, no signup required, works on desktop and mobile browsers
+- New daily puzzle every day with solution and hints
