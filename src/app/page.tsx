@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import HomePuzzleHero from '@/components/HomePuzzleHero';
+import HouseAdBanner from '@/components/HouseAdBanner';
 
 export default function HomePage() {
   const faqSchema = {
@@ -314,6 +315,9 @@ export default function HomePage() {
             </div>
           </div>
         </article>
+
+        {/* House Cross-Promotion Banner */}
+        <HouseAdBanner className="my-8" />
 
         {/* Section 6: Comprehensive FAQ */}
         <article className="space-y-4">

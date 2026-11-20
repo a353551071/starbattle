@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import StarBattleBoard from '@/components/StarBattleBoard';
+import HouseAdBanner from '@/components/HouseAdBanner';
 import puzzleData from '@/data/puzzles.json';
 
 export const metadata: Metadata = {
@@ -62,9 +63,14 @@ export default function TwoNotTouchPage() {
       {
         '@type': 'Game',
         name: 'Two Not Touch - Free Online Logic Puzzle',
-        alternateName: 'Star Battle Online',
+        alternateName: [
+          'Star Battle Online',
+          'Two No Touch',
+          'Two Not Touch Online Free',
+          'Two No Touch Logic Puzzle',
+        ],
         description:
-          'Play Two Not Touch (Star Battle) free online. Place stars so every row, column and region has the required count — no two stars may touch, not even diagonally. Daily 10x10 and 8x8 puzzles, no app and no download.',
+          'Play Two Not Touch (Star Battle / Two No Touch) free online. Place stars so every row, column and region has the required count — no two stars may touch, not even diagonally. Daily 10x10 and 8x8 puzzles, no app and no download.',
         url: 'https://starbattleonline.com/two-not-touch',
         genre: 'Logic puzzle',
         operatingSystem: 'Any (web browser)',
@@ -78,6 +84,14 @@ export default function TwoNotTouchPage() {
       {
         '@type': 'FAQPage',
         mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'Is Two Not Touch also known as Two No Touch?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes! Solvers and puzzle enthusiasts often search for "Two No Touch" or "2 No Touch" when referring to the classic Two Not Touch / Star Battle puzzle rules where no two stars may touch each other horizontally, vertically, or diagonally.',
+            },
+          },
           {
             '@type': 'Question',
             name: 'Can stars touch diagonally in Two Not Touch?',
@@ -152,7 +166,7 @@ export default function TwoNotTouchPage() {
             No app. No download. Play right here.
           </p>
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mx-auto">
-            If you searched for <strong>Two Not Touch</strong> because the app store wanted a download — this page puts the logic puzzle in front of you. Pick an 8&times;8 (one star per row) or 10&times;10 (two stars per row) grid and start solving free online instantly.
+            If you searched for <strong>Two Not Touch</strong> (also commonly called <strong>Two No Touch</strong>) because the app store wanted a download — this page puts the logic puzzle in front of you. Pick an 8&times;8 (one star per row) or 10&times;10 (two stars per row) grid and start solving free online instantly.
           </p>
         </div>
 
@@ -336,12 +350,27 @@ export default function TwoNotTouchPage() {
           </p>
         </article>
 
+        {/* House Cross-Promotion Banner (Safe internal monetization, zero bounce risk) */}
+        <HouseAdBanner className="my-6" />
+
         {/* Section 7: FAQ Accordion Section */}
         <article className="space-y-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
           <h2 className="text-2xl sm:text-3xl font-black text-zinc-900 dark:text-white tracking-tight mb-6">
             Frequently Asked Questions
           </h2>
           <div className="space-y-3">
+            <details className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-4 sm:p-5 transition-all open:bg-zinc-50 dark:open:bg-zinc-900">
+              <summary className="font-bold text-sm sm:text-base text-zinc-900 dark:text-white cursor-pointer list-none flex items-center justify-between">
+                <span>Is Two Not Touch also known as &ldquo;Two No Touch&rdquo;?</span>
+                <span className="text-amber-500 transition-transform group-open:rotate-180">▼</span>
+              </summary>
+              <div className="mt-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed border-t border-zinc-200 dark:border-zinc-800 pt-3">
+                <p>
+                  Yes! Solvers often refer to this game as <strong>Two No Touch</strong> or <strong>2 No Touch</strong> due to its defining logic rule: no two stars may touch horizontally, vertically, or diagonally. While &ldquo;Star Battle&rdquo; is the official World Puzzle Championship moniker and &ldquo;Two Not Touch&rdquo; is standard in North American print puzzle books, they refer to the exact same game.
+                </p>
+              </div>
+            </details>
+
             <details className="group rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-4 sm:p-5 transition-all open:bg-zinc-50 dark:open:bg-zinc-900">
               <summary className="font-bold text-sm sm:text-base text-zinc-900 dark:text-white cursor-pointer list-none flex items-center justify-between">
                 <span>Can stars touch diagonally in Two Not Touch?</span>

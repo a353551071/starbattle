@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 py-12 mt-20 text-zinc-600 dark:text-zinc-400 print:hidden">
+    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 py-12 mt-20 text-zinc-600 dark:text-zinc-400">
       <div className="max-w-5xl mx-auto px-4">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Col 1 */}
@@ -24,6 +24,11 @@ export default function Footer() {
               <li>
                 <Link href="/queens" className="hover:text-amber-500 transition-colors">
                   Queens Game Online (1👑)
+                </Link>
+              </li>
+              <li>
+                <Link href="/stars-logic-game" className="hover:text-amber-500 transition-colors">
+                  Stars Logic Game Online
                 </Link>
               </li>
               <li>
