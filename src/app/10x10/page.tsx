@@ -1,16 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import StarBattleBoard from '@/components/StarBattleBoard';
+import HouseAdBanner from '@/components/HouseAdBanner';
 import puzzleData from '@/data/puzzles.json';
 
 export const metadata: Metadata = {
   title: 'Star Battle 10x10 - Play Free 2-Star Logic Puzzles Online (Classic)',
   description:
-    'Play classic 10x10 Star Battle puzzles online. 2 stars per row, column, and outlined region. Master the definitive tournament standard of Two Not Touch logic grids.',
+    'Play classic 10x10 Star Battle (2 Star Battle / 2 Star Puzzle) online free. 2 stars per row, column, and outlined region without touching. Master the definitive tournament grid.',
   keywords: [
     'star battle 10x10',
     '10x10 star battle',
     '2 star battle',
+    '2 star puzzle',
     'two star battle',
     'star battle 2 stars',
     'classic star battle',
@@ -18,14 +20,92 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://starbattleonline.com/10x10',
   },
+  openGraph: {
+    title: 'Star Battle 10x10 - Play Free 2-Star Logic Puzzles Online',
+    description:
+      'Play classic 10x10 Star Battle (2 Star Battle) logic puzzles online free. 2 stars per row, column, and region with zero diagonal touching.',
+    url: 'https://starbattleonline.com/10x10',
+    siteName: 'Star Battle Online',
+  },
 };
 
 export default function StarBattle10x10Page() {
   const practice10x10List = (puzzleData as any).practice10x10 || [];
   const puzzle = practice10x10List[0];
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Star Battle Online',
+            item: 'https://starbattleonline.com/',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Star Battle 10x10',
+            item: 'https://starbattleonline.com/10x10',
+          },
+        ],
+      },
+      {
+        '@type': 'Game',
+        name: 'Star Battle 10x10 (2 Star Battle)',
+        alternateName: [
+          '2 Star Battle',
+          '2 Star Puzzle',
+          'Star Battle 10x10',
+          'Two Star Battle',
+        ],
+        description:
+          'Play 10x10 Star Battle (2 Star Battle) logic puzzles free online. Place exactly two stars in every row, column, and region with no touching.',
+        url: 'https://starbattleonline.com/10x10',
+        genre: 'Logic puzzle',
+        operatingSystem: 'Any (web browser)',
+        applicationCategory: 'GameApplication',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What is a 2 Star Battle (10x10) puzzle?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'A 2 Star Battle (or 10x10 Star Battle) puzzle is the classic championship format where players must place exactly 2 stars in every row, column, and outlined region without any stars touching orthogonally or diagonally.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can stars touch diagonally in a 10x10 2-star grid?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'No. The universal non-touching rule forbids any adjacent contact, including diagonal corners. Every star must have all 8 surrounding cells completely empty (marked with ✕).',
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="flex flex-col items-center">
+      {/* Schema Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Title & Introduction */}
       <div className="text-center mb-7 max-w-xl">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 mb-3 shadow-xs">
@@ -36,7 +116,7 @@ export default function StarBattle10x10Page() {
           Star Battle <span className="text-purple-600 dark:text-purple-400">10x10</span>
         </h1>
         <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-md mx-auto leading-relaxed">
-          Place exactly <strong className="text-zinc-900 dark:text-zinc-200">2 stars</strong> in every row, column, and outlined region. No two stars may touch, not even diagonally.
+          Place exactly <strong className="text-zinc-900 dark:text-zinc-200">2 stars</strong> in every row, column, and outlined region. No two stars may touch, not even diagonally. Play the classic <strong>2 Star Battle</strong> grid free online!
         </p>
 
         {/* Quick Mode Links */}
@@ -75,10 +155,10 @@ export default function StarBattle10x10Page() {
       <section className="w-full max-w-3xl border-t border-zinc-200 dark:border-zinc-800 pt-12 mt-12 space-y-6 text-zinc-700 dark:text-zinc-300 text-sm">
         <div>
           <h2 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">
-            Mastering the 10x10 2-Star Format
+            Mastering the 10x10 2-Star Battle Format
           </h2>
           <p className="leading-relaxed">
-            The 10x10 grid with 2 stars is the international competitive standard of Star Battle, popularized by the World Puzzle Championship and the New York Times puzzle community. While 8x8 requires simple local deduction, 10x10 demands multi-line spatial counting and the Pigeonhole Principle.
+            The 10x10 grid with 2 stars (also known as <em>2 Star Battle</em> or <em>Two Star Puzzle</em>) is the international competitive standard of Star Battle, popularized by the World Puzzle Championship and the New York Times puzzle community. While 8x8 requires simple local deduction, 10x10 demands multi-line spatial counting and the Pigeonhole Principle.
           </p>
         </div>
 
@@ -96,6 +176,9 @@ export default function StarBattle10x10Page() {
             </p>
           </div>
         </div>
+
+        {/* House Cross-Promotion Banner */}
+        <HouseAdBanner className="my-6" />
 
         <div className="pt-4 flex items-center justify-between text-xs text-zinc-500">
           <span>Want a full strategy breakdown?</span>
