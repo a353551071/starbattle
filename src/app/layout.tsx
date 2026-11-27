@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AdSenseScript from '@/components/AdSenseScript';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://starbattleonline.com'),
   title: 'Star Battle - Free Two Not Touch Daily Logic Puzzles',
   description:
-    'Play Star Battle (Two Not Touch) free online! Solve daily 10x10 and 8x8 logic puzzles with verified unique solutions. No ads or download required.',
+    'Play Star Battle (Two Not Touch) free online! Solve daily 10x10 and 8x8 logic puzzles with verified unique solutions. No signup or download required.',
   keywords: [
     'star battle',
     'two not touch',
@@ -73,19 +74,11 @@ export default function RootLayout({
         {gscVerification && (
           <meta name="google-site-verification" content={gscVerification} />
         )}
-        {adsense && (
-          <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        )}
+        {adsense && <meta name="google-adsense-account" content={adsense} />}
         {gaId && (
           <link rel="preconnect" href="https://www.googletagmanager.com" />
         )}
-        {adsense && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsense}`}
-            crossOrigin="anonymous"
-          />
-        )}
+        {adsense && <AdSenseScript client={adsense} />}
         {gaId && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />

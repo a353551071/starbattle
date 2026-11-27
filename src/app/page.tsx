@@ -310,7 +310,7 @@ export default function HomePage() {
             <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40">
               <h3 className="font-bold text-zinc-900 dark:text-white text-sm mb-1">🖨️ Clean Printable Worksheets</h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                Export crisp, ad-free A4 PDF sheets via our <Link href="/printable" className="text-amber-500 hover:underline">printable generator</Link> for offline puzzle tournaments or classroom sessions.
+                Export crisp, print-ready A4 PDF sheets via our <Link href="/printable" className="text-amber-500 hover:underline">printable generator</Link> for offline puzzle tournaments or classroom sessions.
               </p>
             </div>
           </div>

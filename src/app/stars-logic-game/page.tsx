@@ -173,7 +173,7 @@ export default function StarsLogicGamePage() {
             Place the stars. Leave no touches. Solve with pure logic.
           </p>
           <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mx-auto">
-            Looking for the clean, ad-free <strong>stars logic game</strong>? Solve interactive grid puzzles right in your browser. Choose between starter 8&times;8 boards (1 star) or tournament-grade 10&times;10 layouts (2 stars) with instant error checking.
+            Looking for a clean, distraction-free <strong>stars logic game</strong>? Solve interactive grid puzzles right in your browser. Choose between starter 8&times;8 boards (1 star) or tournament-grade 10&times;10 layouts (2 stars) with instant error checking.
           </p>
         </div>
 

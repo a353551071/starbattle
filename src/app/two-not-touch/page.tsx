@@ -7,14 +7,14 @@ import puzzleData from '@/data/puzzles.json';
 export const metadata: Metadata = {
   title: 'Two Not Touch - Play Free Online Logic Puzzles | Star Battle',
   description:
-    'Play Two Not Touch online free - the Star Battle logic puzzle where no two stars may touch. Daily 10x10 & 8x8 grids. No app, no download, no ads.',
+    'Play Two Not Touch online free - the Star Battle logic puzzle where no two stars may touch. Daily 10x10 & 8x8 grids. No app, no download, no signup.',
   alternates: {
     canonical: 'https://starbattleonline.com/two-not-touch',
   },
   openGraph: {
     title: 'Two Not Touch - Play Free Online Logic Puzzles | Star Battle',
     description:
-      'Play Two Not Touch online free - the Star Battle logic puzzle where no two stars may touch. Daily 10x10 & 8x8 grids. No app, no download, no ads.',
+      'Play Two Not Touch online free - the Star Battle logic puzzle where no two stars may touch. Daily 10x10 & 8x8 grids. No app, no download, no signup.',
     url: 'https://starbattleonline.com/two-not-touch',
     siteName: 'Star Battle Online',
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Two Not Touch - Play Free Online Logic Puzzles | Star Battle',
     description:
-      'Play Two Not Touch online free - the Star Battle logic puzzle where no two stars may touch. Daily 10x10 & 8x8 grids. No app, no download, no ads.',
+      'Play Two Not Touch online free - the Star Battle logic puzzle where no two stars may touch. Daily 10x10 & 8x8 grids. No app, no download, no signup.',
     images: ['/og-image.png'],
   },
 };
@@ -300,7 +300,7 @@ export default function TwoNotTouchPage() {
             <Link href="/printable" className="text-amber-600 dark:text-amber-400 font-bold underline underline-offset-2 hover:text-amber-500">
               printable generator
             </Link>{' '}
-            exports clean, ad-free A4 worksheets in 8&times;8 and 10&times;10 — perfect for road trips, classroom warm-ups, or tournament practice. Each sheet prints with or without the solution on the back page.
+            exports clean, print-ready A4 worksheets in 8&times;8 and 10&times;10 — perfect for road trips, classroom warm-ups, or tournament practice. Each sheet prints with or without the solution on the back page.
           </p>
         </article>
 

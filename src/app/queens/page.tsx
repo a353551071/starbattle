@@ -116,7 +116,7 @@ export default function QueensPage() {
         name: 'Queens Game Online - Free Daily Logic Puzzle',
         alternateName: ['LinkedIn Queens Alternative', 'Star Battle 1-Star', 'Crowns Logic Game'],
         description:
-          'Play the Queens logic game online free. Place queens so each row, column, and color region has exactly one queen with no two queens touching, not even diagonally. Zero ads, instant in-browser play, and step-by-step solver.',
+          'Play the Queens logic game online free. Place queens so each row, column, and color region has exactly one queen with no two queens touching, not even diagonally. Clean interface, instant in-browser play, and step-by-step solver.',
         url: 'https://starbattleonline.com/queens',
         genre: 'Logic puzzle',
         operatingSystem: 'Any (web browser)',
